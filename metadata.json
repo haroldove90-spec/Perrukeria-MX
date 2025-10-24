@@ -1,0 +1,7 @@
+{
+  "name": "La Perrukeria MX",
+  "description": "An application for a mobile dog grooming business that allows clients to book appointments, manage their pet's profile, and view services. Admins can manage appointments, clients, and business details.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
