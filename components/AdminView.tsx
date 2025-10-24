@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MOCK_APPOINTMENTS, MOCK_PETS, MOCK_SERVICES, MOCK_CLIENTS, ChartIcon, CalendarIcon, ScissorsIcon, UserGroupIcon } from '../constants';
 import type { Appointment, Service, Client } from '../types';
@@ -90,8 +89,8 @@ const AppointmentManager = () => {
     return (
         <div className="p-4">
             <h2 className="text-2xl font-bold mb-4">Gestionar Citas</h2>
-            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
-                <table className="w-full text-sm text-left">
+            <div className="bg-white rounded-lg shadow-md">
+                <table className="w-full text-sm text-left responsive-table">
                     <thead className="bg-gray-100 text-gray-600 uppercase">
                         <tr>
                             <th className="p-3">Mascota</th>
@@ -107,15 +106,15 @@ const AppointmentManager = () => {
                             const service = MOCK_SERVICES.find(s => s.id === appt.serviceId);
                             return (
                                 <tr key={appt.id} className="border-b hover:bg-gray-50">
-                                    <td className="p-3 font-semibold">{pet?.name}</td>
-                                    <td className="p-3">{appt.clientName}</td>
-                                    <td className="p-3">{service?.name}</td>
-                                    <td className="p-3">{appt.date} {appt.time}</td>
-                                    <td className="p-3">
+                                    <td data-label="Mascota" className="p-3 font-semibold">{pet?.name}</td>
+                                    <td data-label="Cliente" className="p-3">{appt.clientName}</td>
+                                    <td data-label="Servicio" className="p-3">{service?.name}</td>
+                                    <td data-label="Fecha y Hora" className="p-3">{appt.date} {appt.time}</td>
+                                    <td data-label="Estado" className="p-3">
                                         <select
                                             value={appt.status}
                                             onChange={(e) => handleStatusChange(appt.id, e.target.value as Appointment['status'])}
-                                            className="p-1 rounded border bg-white"
+                                            className="p-1 rounded border bg-white w-full"
                                         >
                                             <option>Scheduled</option>
                                             <option>Completed</option>
@@ -138,8 +137,8 @@ const ClientManager = () => {
     return (
         <div className="p-4">
             <h2 className="text-2xl font-bold mb-4">Gestión de Clientes</h2>
-            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
-                <table className="w-full text-sm text-left">
+            <div className="bg-white rounded-lg shadow-md">
+                <table className="w-full text-sm text-left responsive-table">
                     <thead className="bg-gray-100 text-gray-600 uppercase">
                         <tr>
                             <th className="p-3">Nombre</th>
@@ -153,10 +152,10 @@ const ClientManager = () => {
                             const clientPets = MOCK_PETS.filter(p => client.petIds.includes(p.id));
                             return (
                                 <tr key={client.id} className="border-b hover:bg-gray-50">
-                                    <td className="p-3 font-semibold">{client.name}</td>
-                                    <td className="p-3">{clientPets.map(p => p.name).join(', ')}</td>
-                                    <td className="p-3">{client.joinedDate}</td>
-                                    <td className="p-3">
+                                    <td data-label="Nombre" className="p-3 font-semibold">{client.name}</td>
+                                    <td data-label="Mascotas" className="p-3">{clientPets.map(p => p.name).join(', ')}</td>
+                                    <td data-label="Miembro Desde" className="p-3">{client.joinedDate}</td>
+                                    <td data-label="Acciones" className="p-3">
                                         <button className="text-blue-600 hover:underline">Ver Perfil</button>
                                     </td>
                                 </tr>
@@ -246,8 +245,8 @@ const ServiceManager = () => {
                     + Añadir Servicio
                 </button>
             </div>
-            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
-                <table className="w-full text-sm text-left">
+            <div className="bg-white rounded-lg shadow-md">
+                <table className="w-full text-sm text-left responsive-table">
                     <thead className="bg-gray-100 text-gray-600 uppercase">
                         <tr>
                             <th className="p-3">Nombre</th>
@@ -259,10 +258,10 @@ const ServiceManager = () => {
                     <tbody>
                         {services.map(service => (
                             <tr key={service.id} className="border-b hover:bg-gray-50">
-                                <td className="p-3 font-semibold">{service.name}</td>
-                                <td className="p-3">${service.price}</td>
-                                <td className="p-3">{service.duration} min</td>
-                                <td className="p-3 space-x-2">
+                                <td data-label="Nombre" className="p-3 font-semibold">{service.name}</td>
+                                <td data-label="Precio" className="p-3">${service.price}</td>
+                                <td data-label="Duración" className="p-3">{service.duration} min</td>
+                                <td data-label="Acciones" className="p-3 space-x-2">
                                     <button onClick={() => handleEdit(service)} className="text-blue-600 hover:underline">Editar</button>
                                     <button onClick={() => handleDelete(service.id)} className="text-red-600 hover:underline">Eliminar</button>
                                 </td>
@@ -322,7 +321,7 @@ const AdminView: React.FC = () => {
     return (
         <div className="flex min-h-screen">
             <AdminSideBar activeView={activeView} onNavigate={setActiveView} />
-            <div className="flex-grow bg-gray-100">
+            <div className="flex-grow bg-gray-100 overflow-x-hidden">
                 <AdminHeader />
                 <main>{renderView()}</main>
             </div>
