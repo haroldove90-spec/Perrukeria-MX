@@ -1,0 +1,23 @@
+{
+  "name": "La Perrukeria MX",
+  "short_name": "PerrukeriaMX",
+  "description": "An application for a mobile dog grooming business that allows clients to book appointments, manage their pet's profile, and view services. Admins can manage appointments, clients, and business details.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#E9691E",
+  "theme_color": "#E9691E",
+  "icons": [
+    {
+      "src": "https://appdesignmex.com/perrukeriamx.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://appdesignmex.com/perrukeriamx.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
