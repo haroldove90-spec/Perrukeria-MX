@@ -1,13 +1,12 @@
-
 import React from 'react';
 import type { Pet, Service, Appointment, Promotion, GalleryImage } from './types';
 
 export const WHATSAPP_NUMBER = "5215512345678"; // Replace with actual number
 
 export const MOCK_PETS: Pet[] = [
-  { id: 1, name: 'Max', breed: 'Golden Retriever', age: 3, imageUrl: 'https://picsum.photos/seed/max/200/200' },
-  { id: 2, name: 'Luna', breed: 'Poodle', age: 5, imageUrl: 'https://picsum.photos/seed/luna/200/200' },
-  { id: 3, name: 'Rocky', breed: 'Bulldog', age: 2, imageUrl: 'https://picsum.photos/seed/rocky/200/200' },
+  { id: 1, name: 'Max', breed: 'Golden Retriever', age: 3, imageUrl: 'https://appdesignmex.com/dog01.png' },
+  { id: 2, name: 'Luna', breed: 'Poodle Mix', age: 1, imageUrl: 'https://appdesignmex.com/dog02.png' },
+  { id: 3, name: 'Rocky', breed: 'Yorkshire Terrier', age: 2, imageUrl: 'https://appdesignmex.com/dog03.png' },
 ];
 
 export const MOCK_SERVICES: Service[] = [
@@ -29,12 +28,12 @@ export const MOCK_PROMOTIONS: Promotion[] = [
 ];
 
 export const MOCK_GALLERY: GalleryImage[] = [
-  { id: 1, imageUrl: 'https://picsum.photos/seed/gal1/400/400', caption: 'Rocky luciendo su nuevo corte' },
-  { id: 2, imageUrl: 'https://picsum.photos/seed/gal2/400/400', caption: 'Luna después de su baño relajante' },
-  { id: 3, imageUrl: 'https://picsum.photos/seed/gal3/400/400', caption: 'Max, listo para la foto' },
-  { id: 4, imageUrl: 'https://picsum.photos/seed/gal4/400/400', caption: 'Un cliente feliz' },
-  { id: 5, imageUrl: 'https://picsum.photos/seed/gal5/400/400', caption: '¡Pura frescura!' },
-  { id: 6, imageUrl: 'https://picsum.photos/seed/gal6/400/400', caption: 'Estilo y elegancia' },
+  { id: 1, imageUrl: 'https://appdesignmex.com/dog04.png', caption: 'Una sonrisa Colgate' },
+  { id: 2, imageUrl: 'https://appdesignmex.com/dog05.png', caption: 'Relajado y feliz' },
+  { id: 3, imageUrl: 'https://appdesignmex.com/dog06.png', caption: 'Mirada de modelo' },
+  { id: 4, imageUrl: 'https://appdesignmex.com/dog01.png', caption: 'Un cliente consentido' },
+  { id: 5, imageUrl: 'https://appdesignmex.com/dog02.png', caption: '¡Pura frescura de cachorro!' },
+  { id: 6, imageUrl: 'https://appdesignmex.com/dog03.png', caption: 'Estilo y elegancia' },
 ];
 
 // SVG Icons

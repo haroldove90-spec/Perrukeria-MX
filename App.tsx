@@ -21,7 +21,6 @@ const App: React.FC = () => {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-[#E9691E]">
         <img src="https://appdesignmex.com/perrukeriamx.png" alt="Logo" className="w-48 h-48 animate-bounce" />
-        <h1 className="text-4xl font-bold text-white mt-4">La Perrukeria MX</h1>
       </div>
     );
   }

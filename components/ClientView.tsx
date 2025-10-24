@@ -10,8 +10,7 @@ type ClientViewType = 'home' | 'services' | 'appointments' | 'promotions' | 'gal
 
 const ClientHeader = () => (
     <header className="bg-[#E9691E] text-white p-4 shadow-md sticky top-0 z-30 flex items-center justify-center">
-        <img src="https://appdesignmex.com/perrukeriamx.png" alt="Logo" className="w-12 h-12 mr-4" />
-        <h1 className="text-2xl font-bold">La Perrukeria MX</h1>
+        <img src="https://appdesignmex.com/perrukeriamx.png" alt="Logo" className="w-12 h-12" />
     </header>
 );
 
