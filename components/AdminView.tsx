@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { MOCK_APPOINTMENTS, MOCK_PETS, MOCK_SERVICES, ChartIcon, CalendarIcon, ScissorsIcon, UserGroupIcon } from '../constants';
-import type { Appointment } from '../types';
+import { MOCK_APPOINTMENTS, MOCK_PETS, MOCK_SERVICES, MOCK_CLIENTS, ChartIcon, CalendarIcon, ScissorsIcon, UserGroupIcon } from '../constants';
+import type { Appointment, Service, Client } from '../types';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 
 type AdminViewType = 'dashboard' | 'appointments' | 'clients' | 'services';
@@ -132,6 +132,150 @@ const AppointmentManager = () => {
     );
 };
 
+const ClientManager = () => {
+    const clients = MOCK_CLIENTS;
+
+    return (
+        <div className="p-4">
+            <h2 className="text-2xl font-bold mb-4">Gestión de Clientes</h2>
+            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                    <thead className="bg-gray-100 text-gray-600 uppercase">
+                        <tr>
+                            <th className="p-3">Nombre</th>
+                            <th className="p-3">Mascotas</th>
+                            <th className="p-3">Miembro Desde</th>
+                            <th className="p-3">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {clients.map(client => {
+                            const clientPets = MOCK_PETS.filter(p => client.petIds.includes(p.id));
+                            return (
+                                <tr key={client.id} className="border-b hover:bg-gray-50">
+                                    <td className="p-3 font-semibold">{client.name}</td>
+                                    <td className="p-3">{clientPets.map(p => p.name).join(', ')}</td>
+                                    <td className="p-3">{client.joinedDate}</td>
+                                    <td className="p-3">
+                                        <button className="text-blue-600 hover:underline">Ver Perfil</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
+const ServiceManager = () => {
+    const [services, setServices] = useState(MOCK_SERVICES);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingService, setEditingService] = useState<Service | null>(null);
+
+    const handleDelete = (id: number) => {
+        if (confirm('¿Estás seguro de que quieres eliminar este servicio?')) {
+            setServices(prev => prev.filter(s => s.id !== id));
+        }
+    };
+
+    const handleEdit = (service: Service) => {
+        setEditingService(service);
+        setIsModalOpen(true);
+    };
+    
+    const handleAddNew = () => {
+        setEditingService(null);
+        setIsModalOpen(true);
+    };
+
+    const handleSave = (service: Service) => {
+        if (editingService && editingService.id) {
+            setServices(prev => prev.map(s => s.id === service.id ? service : s));
+        } else {
+            const newService = { ...service, id: Date.now() };
+            setServices(prev => [...prev, newService]);
+        }
+        setIsModalOpen(false);
+        setEditingService(null);
+    };
+
+    const ServiceModal = ({ service, onSave, onCancel }: { service: Partial<Service> | null, onSave: (service: Service) => void, onCancel: () => void }) => {
+        const [formData, setFormData] = useState({
+            name: service?.name || '',
+            description: service?.description || '',
+            price: service?.price || 0,
+            duration: service?.duration || 0,
+        });
+
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const { name, value } = e.target;
+            setFormData(prev => ({ ...prev, [name]: name === 'price' || name === 'duration' ? Number(value) : value }));
+        };
+
+        const handleSubmit = (e: React.FormEvent) => {
+            e.preventDefault();
+            onSave({ ...service, ...formData } as Service);
+        };
+        
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+                <div className="bg-white rounded-lg p-6 shadow-xl w-full max-w-md">
+                    <h3 className="text-xl font-bold mb-4">{service ? 'Editar' : 'Añadir'} Servicio</h3>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Nombre del servicio" className="w-full p-2 border rounded" required />
+                        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" className="w-full p-2 border rounded" required />
+                        <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Precio" className="w-full p-2 border rounded" required />
+                        <input type="number" name="duration" value={formData.duration} onChange={handleChange} placeholder="Duración (minutos)" className="w-full p-2 border rounded" required />
+                        <div className="flex justify-end gap-3">
+                            <button type="button" onClick={onCancel} className="bg-gray-300 text-gray-800 py-2 px-4 rounded">Cancelar</button>
+                            <button type="submit" className="bg-[#2BB8C9] text-white py-2 px-4 rounded">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <div className="p-4">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold">Gestión de Servicios</h2>
+                <button onClick={handleAddNew} className="bg-[#E9691E] text-white font-bold py-2 px-4 rounded-lg shadow transition-transform hover:scale-105">
+                    + Añadir Servicio
+                </button>
+            </div>
+            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                    <thead className="bg-gray-100 text-gray-600 uppercase">
+                        <tr>
+                            <th className="p-3">Nombre</th>
+                            <th className="p-3">Precio</th>
+                            <th className="p-3">Duración</th>
+                            <th className="p-3">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {services.map(service => (
+                            <tr key={service.id} className="border-b hover:bg-gray-50">
+                                <td className="p-3 font-semibold">{service.name}</td>
+                                <td className="p-3">${service.price}</td>
+                                <td className="p-3">{service.duration} min</td>
+                                <td className="p-3 space-x-2">
+                                    <button onClick={() => handleEdit(service)} className="text-blue-600 hover:underline">Editar</button>
+                                    <button onClick={() => handleDelete(service.id)} className="text-red-600 hover:underline">Eliminar</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            {isModalOpen && <ServiceModal service={editingService} onSave={handleSave} onCancel={() => setIsModalOpen(false)} />}
+        </div>
+    );
+};
+
 const AdminSideBar = ({ activeView, onNavigate }: { activeView: AdminViewType, onNavigate: (view: AdminViewType) => void }) => {
     const navItems = [
         { view: 'dashboard', icon: ChartIcon, label: 'Dashboard' },
@@ -169,8 +313,8 @@ const AdminView: React.FC = () => {
         switch(activeView) {
             case 'dashboard': return <Dashboard />;
             case 'appointments': return <AppointmentManager />;
-            case 'clients': return <div className="p-4"><h2 className="text-2xl font-bold">Gestión de Clientes (Próximamente)</h2></div>;
-            case 'services': return <div className="p-4"><h2 className="text-2xl font-bold">Gestión de Servicios (Próximamente)</h2></div>;
+            case 'clients': return <ClientManager />;
+            case 'services': return <ServiceManager />;
             default: return <Dashboard />;
         }
     };

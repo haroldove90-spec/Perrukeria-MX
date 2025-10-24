@@ -1,5 +1,6 @@
+
 import React from 'react';
-import type { Pet, Service, Appointment, Promotion, GalleryImage } from './types';
+import type { Pet, Service, Appointment, Promotion, GalleryImage, Client } from './types';
 
 export const WHATSAPP_NUMBER = "5215512345678"; // Replace with actual number
 
@@ -7,6 +8,12 @@ export const MOCK_PETS: Pet[] = [
   { id: 1, name: 'Max', breed: 'Golden Retriever', age: 3, imageUrl: 'https://appdesignmex.com/dog01.png' },
   { id: 2, name: 'Luna', breed: 'Poodle Mix', age: 1, imageUrl: 'https://appdesignmex.com/dog02.png' },
   { id: 3, name: 'Rocky', breed: 'Yorkshire Terrier', age: 2, imageUrl: 'https://appdesignmex.com/dog03.png' },
+];
+
+export const MOCK_CLIENTS: Client[] = [
+  { id: 1, name: 'Juan Perez', petIds: [1], joinedDate: '2024-05-10' },
+  { id: 2, name: 'Maria Garcia', petIds: [2], joinedDate: '2024-06-22' },
+  { id: 3, name: 'Carlos Lopez', petIds: [3], joinedDate: '2024-03-15' },
 ];
 
 export const MOCK_SERVICES: Service[] = [

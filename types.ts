@@ -42,3 +42,10 @@ export interface GalleryImage {
   imageUrl: string;
   caption: string;
 }
+
+export interface Client {
+  id: number;
+  name: string;
+  petIds: number[];
+  joinedDate: string;
+}
