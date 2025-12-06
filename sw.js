@@ -1,4 +1,5 @@
-const CACHE_NAME = 'la-perrukeria-mx-v1';
+
+const CACHE_NAME = 'la-perrukeria-mx-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,6 +7,7 @@ const urlsToCache = [
   '/App.tsx',
   '/types.ts',
   '/constants.tsx',
+  '/context/DataContext.tsx',
   '/components/ClientView.tsx',
   '/components/AdminView.tsx',
   '/components/FloatingWhatsAppButton.tsx',

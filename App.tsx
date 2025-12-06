@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Role } from './types';
 import ClientView from './components/ClientView';
 import AdminView from './components/AdminView';
+import { DataProvider } from './context/DataContext';
 
 const App: React.FC = () => {
   const [role, setRole] = useState<Role>(Role.CLIENT);
@@ -26,17 +27,19 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="fixed top-2 right-2 z-50">
-        <button
-          onClick={toggleRole}
-          className="bg-[#2BB8C9] text-white px-3 py-1 rounded-full shadow-lg text-sm transition-transform hover:scale-105"
-        >
-          Vista: {role === Role.CLIENT ? 'Cliente' : 'Admin'}
-        </button>
+    <DataProvider>
+      <div className="min-h-screen bg-gray-50">
+        <div className="fixed top-2 right-2 z-50">
+          <button
+            onClick={toggleRole}
+            className="bg-[#2BB8C9] text-white px-3 py-1 rounded-full shadow-lg text-sm transition-transform hover:scale-105"
+          >
+            Vista: {role === Role.CLIENT ? 'Cliente' : 'Admin'}
+          </button>
+        </div>
+        {role === Role.CLIENT ? <ClientView /> : <AdminView />}
       </div>
-      {role === Role.CLIENT ? <ClientView /> : <AdminView />}
-    </div>
+    </DataProvider>
   );
 };
 
